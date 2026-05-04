@@ -16,8 +16,7 @@ export default async function Home() {
 
   // Server Component内なので、直接asyncでデータを取得できる
   // これがSSR（Server Side Rendering）の基本形です
-  // const response = await api.get<Post[]>(`${baseURL}/api/posts`);
-  const response = await api.get<Post[]>("http://backend:8080/api/posts");
+  const response = await api.get<Post[]>(`${baseURL}/api/posts`);
   const posts = response.data;
 
   return (
