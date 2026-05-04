@@ -1,0 +1,20 @@
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend:/app
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules # コンテナ内のnode_modulesを保護
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8080 # クライアントサイド用（ブラウザから見たURL）
+      - API_URL_SERVER=http://backend:8080 # サーバーサイド用（コンテナ内から見たURL）
+    depends_on:
+      - backend

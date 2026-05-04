@@ -9,9 +9,14 @@ interface Post {
 }
 
 export default async function Home() {
+
+  const baseURL = typeof window === 'undefined' 
+  ? process.env.API_URL_SERVER 
+  : process.env.NEXT_PUBLIC_API_URL;
+
   // Server Component内なので、直接asyncでデータを取得できる
   // これがSSR（Server Side Rendering）の基本形です
-  const response = await api.get<Post[]>('http://localhost:8080/api/posts');
+  const response = await api.get<Post[]>(`${baseURL}/api/posts`);
   const posts = response.data;
 
   return (
